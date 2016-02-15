@@ -1,0 +1,42 @@
+$colors: (
+  green: #95c11F,
+  dark-grey: #3C3C3B,
+  grey: #6c6D70,
+  light-grey: #F8F8F8
+);
+
+html, body{
+  overflow: hidden;
+  width: 100%;
+}
+
+.wrapper,
+.page-wrapper,
+.page,
+.page-inner{
+  height: 100%;
+}
+
+.wrapper{
+  padding: 15px;
+  overflow: hidden;
+  background-color: map-get($colors, light-grey);
+}
+
+.page-wrapper{
+  background-image: url('../img/domaine-de-syam/1.jpg');
+  background-size: cover;
+}
+
+.page--landing{
+  background-color: rgba(0,0,0,0.5);
+}
+
+.title{
+  display: inline-block;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
