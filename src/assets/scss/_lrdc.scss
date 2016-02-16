@@ -29,7 +29,7 @@ html, body{
 }
 
 .page--landing{
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.3);
 }
 
 .title{
@@ -40,3 +40,52 @@ html, body{
   transform: translateY(-50%);
 }
 
+
+
+.window{
+  position: relative;
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  text-align: center;
+  color: #FFFFFF;
+
+
+  &:before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border: 2px solid #FFFFFF;
+    transform-origin: 50%;
+    transform: translate3d(-50%,-50%,0) rotate3d(0,0,1,-45deg);
+  }
+
+  &:after{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 200px;
+    border: 2px solid #FFFFFF;
+    transform-origin: 50%;
+    transform: translate3d(-50%,-47%,0) rotate3d(0,0,1,-45deg);
+  }
+}
+
+.window-content{
+  line-height: normal;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 25px;
+}
+
+.window-title{
+  line-height: 1;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}

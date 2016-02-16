@@ -51,7 +51,6 @@ var PATHS = {
     'bower_components/foundation-sites/js/foundation.tabs.js',
     'bower_components/foundation-sites/js/foundation.toggler.js',
     'bower_components/foundation-sites/js/foundation.tooltip.js',
-    'bower_components/snap.svg/dist/snap.svg-min.js',
     'src/assets/js/**/!(app).js',
     'src/assets/js/app.js'
   ]
