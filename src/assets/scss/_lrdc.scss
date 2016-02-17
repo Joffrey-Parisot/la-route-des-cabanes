@@ -26,66 +26,107 @@ html, body{
 .page-wrapper{
   background-image: url('../img/domaine-de-syam/1.jpg');
   background-size: cover;
+  overflow: hidden;
 }
 
 .page--landing{
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.2);
 }
 
 .title{
-  display: inline-block;
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  margin-bottom: 0;
+  position: relative;
+  height: 100%;
 }
 
+.title__link{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-50%,0);
+}
 
+.tree-house{
+  position: relative;
+  height: 100%;
+}
+
+.windows{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-50%,0) rotate(45deg);
+}
 
 .window{
+  display: block;
   position: relative;
-  width: 200px;
-  height: 200px;
-  line-height: 200px;
+  width: 300px;
+  height: 300px;
+  line-height: 300px;
   text-align: center;
   color: #FFFFFF;
+  transform: rotate3d(0,0,1,-45deg);
+  margin-bottom: 25px;
 
-
-  &:before{
+  &:before, &:after{
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border: 2px solid #FFFFFF;
     transform-origin: 50%;
+  }
+
+  &:before{
     transform: translate3d(-50%,-50%,0) rotate3d(0,0,1,-45deg);
   }
 
   &:after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    border: 2px solid #FFFFFF;
-    transform-origin: 50%;
     transform: translate3d(-50%,-47%,0) rotate3d(0,0,1,-45deg);
   }
+}
+
+.window--little{
+  width: 150px;
+  height: 150px;
+  line-height: 150px;
+
+  &:before, &:after{
+    width: 150px;
+    height: 150px;
+  }
+
+  &:after{
+    transform: translate3d(-50%,-44%,0) rotate3d(0,0,1,-45deg);
+  }
+}
+
+.window--middle{
+  clear: both;
+  margin-right: 25px;
 }
 
 .window-content{
   line-height: normal;
   display: inline-block;
   vertical-align: middle;
-  padding: 25px;
+  padding: 15px;
+  max-width: 100%;
 }
 
 .window-title{
   line-height: 1;
-  font-size: 2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
   text-transform: uppercase;
   margin-top: 0.5rem;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+.window--little .window-title{
+  font-size: 1.2rem;
 }
