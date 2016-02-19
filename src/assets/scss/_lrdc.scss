@@ -66,27 +66,29 @@ html, body{
   line-height: 300px;
   text-align: center;
   color: #FFFFFF;
-  transform: rotate3d(0,0,1,-45deg);
   margin-bottom: 25px;
+  transition: color 0.3s;
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 
-  &:before, &:after{
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300px;
-    height: 300px;
-    border: 2px solid #FFFFFF;
-    transform-origin: 50%;
+  &:hover{
+    color: map-get($colors, dark-grey);
   }
+}
 
-  &:before{
-    transform: translate3d(-50%,-50%,0) rotate3d(0,0,1,-45deg);
-  }
+.window__border{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border: 2px solid #FFFFFF;
+  transform-origin: 50%;
+  transform: translate3d(-50%,-50%,0);
+}
 
-  &:after{
-    transform: translate3d(-50%,-47%,0) rotate3d(0,0,1,-45deg);
-  }
+.window__border--offset{
+  top: 52%;
+  left: 52%;
 }
 
 .window--little{
@@ -94,13 +96,14 @@ html, body{
   height: 150px;
   line-height: 150px;
 
-  &:before, &:after{
+  .window__border{
     width: 150px;
     height: 150px;
   }
 
-  &:after{
-    transform: translate3d(-50%,-44%,0) rotate3d(0,0,1,-45deg);
+  .window__border--offset{
+    top: 54%;
+    left: 54%;
   }
 }
 
@@ -109,15 +112,18 @@ html, body{
   margin-right: 25px;
 }
 
-.window-content{
+.window__content{
   line-height: normal;
   display: inline-block;
   vertical-align: middle;
   padding: 15px;
   max-width: 100%;
+  position: relative;
+  z-index: 2;
+  transform: rotate3d(0,0,1,-45deg);
 }
 
-.window-title{
+.window__title{
   line-height: 1;
   font-size: 1.8rem;
   font-weight: bold;
@@ -127,6 +133,31 @@ html, body{
   hyphens: auto;
 }
 
-.window--little .window-title{
+.window--little .window__title{
   font-size: 1.2rem;
+}
+
+
+.window__overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    path {
+      fill: #FFFFFF;
+    }
+  }
+}
+
+.window__overlay.show{
+  visibility: visible;
 }
