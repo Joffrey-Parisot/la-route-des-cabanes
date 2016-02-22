@@ -10,6 +10,14 @@ html, body{
   width: 100%;
 }
 
+a{
+  &:hover,
+  &:focus,
+  &:active{
+    color: map-get($colors, dark-grey);
+  }
+}
+
 .wrapper,
 .page-wrapper,
 .page,
@@ -30,7 +38,7 @@ html, body{
 }
 
 .page--landing{
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .title{
@@ -67,7 +75,7 @@ html, body{
   text-align: center;
   color: #FFFFFF;
   margin-bottom: 25px;
-  transition: color 0.3s;
+  transition: all 0.5s;
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 
   &:hover{
@@ -137,27 +145,92 @@ html, body{
   font-size: 1.2rem;
 }
 
-
-.window__overlay{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-
-  svg {
+/*
+ * Button effect
+ */
+.btn{
+  &:before,
+  &:after{
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 0 0;
     position: absolute;
-    top: 0;
-    left: 0;
+    transition: 0.5s;
+  }
 
-    path {
-      fill: #FFFFFF;
+  &:before{
+    border-color: transparent transparent transparent #FFFFFF;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:after{
+    border-color: transparent #FFFFFF transparent transparent;
+    top: 0;
+    right: 0;
+  }
+
+  .btn__content{
+    &:before,
+    &:after{
+      content: '';
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 0 0;
+      position: absolute;
+      transition: 0.5s;
+    }
+
+    &:before{
+      border-color: transparent transparent #FFFFFF transparent;
+      right: 0;
+      bottom: 0;
+    }
+
+
+    &:after {
+      border-color: #FFFFFF transparent transparent transparent;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  &:hover{
+    &:before{
+      border-width: 300px 0 0 300px;
+    }
+
+    &:after{
+      border-width: 0 300px 300px 0;
+    }
+
+    .btn__content:before{
+      border-width: 0 0 300px 300px;
+    }
+
+    .btn__content:after{
+      border-width: 300px 300px 0 0;
     }
   }
 }
 
-.window__overlay.show{
-  visibility: visible;
+.btn--little:hover{
+  &:before{
+    border-width: 150px 0 0 150px;
+  }
+
+  &:after{
+    border-width: 0 150px 150px 0;
+  }
+
+  .btn__content:before{
+    border-width: 0 0 150px 150px;
+  }
+
+  .btn__content:after{
+    border-width: 150px 150px 0 0;
+  }
 }
