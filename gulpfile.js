@@ -6,7 +6,8 @@ var panini    = require('panini');
 var rimraf    = require('rimraf');
 var sequence  = require('run-sequence');
 var sherpa    = require('style-sherpa');
-var modernizr = require('gulp-modernizr');
+var fs        = require('fs');
+var modernizr = require('modernizr');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -53,7 +54,8 @@ var PATHS = {
     'bower_components/foundation-sites/js/foundation.toggler.js',
     'bower_components/foundation-sites/js/foundation.tooltip.js',
     'src/assets/js/**/!(app).js',
-    'src/assets/js/app.js'
+    'src/assets/js/app.js',
+    'src/assets/js/modernizr.js'
   ]
 };
 
@@ -129,33 +131,39 @@ gulp.task('sass', function() {
     .pipe(browser.reload({ stream: true }));
 });
 
+// Build Modernizr
+gulp.task('modernizr', function () {
+
+  modernizr.build({
+    "options": [
+      "domPrefixes",
+      "prefixed",
+      "testAllProps",
+      "testProp",
+      "html5shiv",
+      "setClasses"
+    ],
+    "feature-detects": [
+      "test/css/transitions"
+    ]
+  }, function(code) {
+    fs.writeFile('src/assets/js/modernizr.js', code, function(err) {
+      if (err) throw err;
+    });
+  });
+
+});
+
 // Combine JavaScript into one file
 // In production, the file is minified
-gulp.task('javascript', function() {
+gulp.task('javascript', ['modernizr'], function() {
   var uglify = $.if(isProduction, $.uglify()
     .on('error', function (e) {
       console.log(e);
     }));
 
-  gulp.src('src/assets/js/empty.js')
-    .pipe(modernizr({
-      "options": [
-        "domPrefixes",
-        "prefixed",
-        "testAllProps",
-        "testProp",
-        "html5shiv",
-        "setClasses"
-      ],
-      "feature-detects": [
-        "test/css/transitions"
-      ]
-    }))
-    .pipe(gulp.dest('dist/assets/js'));
-
   return gulp.src(PATHS.javascript)
     .pipe($.sourcemaps.init())
-    .pipe($.concat('modernizr.js'))
     .pipe($.concat('app.js'))
     .pipe(uglify)
     .pipe($.if(!isProduction, $.sourcemaps.write()))
