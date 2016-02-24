@@ -1,11 +1,12 @@
-var $        = require('gulp-load-plugins')();
-var argv     = require('yargs').argv;
-var browser  = require('browser-sync');
-var gulp     = require('gulp');
-var panini   = require('panini');
-var rimraf   = require('rimraf');
-var sequence = require('run-sequence');
-var sherpa   = require('style-sherpa');
+var $         = require('gulp-load-plugins')();
+var argv      = require('yargs').argv;
+var browser   = require('browser-sync');
+var gulp      = require('gulp');
+var panini    = require('panini');
+var rimraf    = require('rimraf');
+var sequence  = require('run-sequence');
+var sherpa    = require('style-sherpa');
+var modernizr = require('gulp-modernizr');
 
 // Check for --production flag
 var isProduction = !!(argv.production);
@@ -51,7 +52,6 @@ var PATHS = {
     'bower_components/foundation-sites/js/foundation.tabs.js',
     'bower_components/foundation-sites/js/foundation.toggler.js',
     'bower_components/foundation-sites/js/foundation.tooltip.js',
-    'bower_components/snap.svg/dist/snap.svg-min.js',
     'src/assets/js/**/!(app).js',
     'src/assets/js/app.js'
   ]
@@ -137,8 +137,25 @@ gulp.task('javascript', function() {
       console.log(e);
     }));
 
+  gulp.src('src/assets/js/empty.js')
+    .pipe(modernizr({
+      "options": [
+        "domPrefixes",
+        "prefixed",
+        "testAllProps",
+        "testProp",
+        "html5shiv",
+        "setClasses"
+      ],
+      "feature-detects": [
+        "test/css/transitions"
+      ]
+    }))
+    .pipe(gulp.dest('dist/assets/js'));
+
   return gulp.src(PATHS.javascript)
     .pipe($.sourcemaps.init())
+    .pipe($.concat('modernizr.js'))
     .pipe($.concat('app.js'))
     .pipe(uglify)
     .pipe($.if(!isProduction, $.sourcemaps.write()))
