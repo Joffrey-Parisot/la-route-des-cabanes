@@ -4,20 +4,20 @@ var support = { transitions: Modernizr.csstransitions },
     transEndEventNames = { 'WebkitTransition': 'webkitTransitionEnd', 'MozTransition': 'transitionend', 'OTransition': 'oTransitionEnd', 'msTransition': 'MSTransitionEnd', 'transition': 'transitionend' },
     transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
     onEndTransition = function( el, callback ) {
-    var onEndCallbackFn = function( ev ) {
+        var onEndCallbackFn = function( ev ) {
+            if( support.transitions ) {
+                if( ev.target != this ) return;
+                this.removeEventListener( transEndEventName, onEndCallbackFn );
+            }
+            if( callback && typeof callback === 'function' ) { callback.call(this); }
+        };
         if( support.transitions ) {
-            if( ev.target != this ) return;
-            this.removeEventListener( transEndEventName, onEndCallbackFn );
+            el.addEventListener( transEndEventName, onEndCallbackFn );
         }
-        if( callback && typeof callback === 'function' ) { callback.call(this); }
+        else {
+            onEndCallbackFn();
+        }
     };
-    if( support.transitions ) {
-        el.addEventListener( transEndEventName, onEndCallbackFn );
-    }
-    else {
-        onEndCallbackFn();
-    }
-};
 
 $('.window').click(function(e){
 
@@ -40,8 +40,27 @@ $('.window').click(function(e){
         placeholder.addClass('window__placeholder--loading');
     }, 25);
 
-    onEndTransition(placeholder, function() {
+    onEndTransition(placeholder[0], function() {
         console.log('stop transition');
+
+        $.ajax({
+            url: page,
+            method: 'GET',
+            dataType: 'html'
+        })
+        .success(function(data){
+            //console.log(data);
+            var pageWrapper = $(data).find('.page-wrapper');
+            console.log(pageWrapper);
+            $('.landing').after(pageWrapper);
+        });
+
+        /*var loader = $('<div class="loader"></div>');
+
+        loader.load(page + " .page-wrapper");
+
+        console.log(loader);*/
+
     });
 
 });
