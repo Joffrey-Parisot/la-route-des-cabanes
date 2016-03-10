@@ -37,6 +37,20 @@ a{
   overflow: hidden;
 }
 
+.page-dummy{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 100%;
+  background-color: rgba(118, 255, 86, 0.4);
+  border: 15px solid #FFFFFF;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s;
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+
 .page{
   overflow: hidden;
   position: relative;
@@ -250,7 +264,7 @@ a{
   top: 0;
   left: 0;
   transform-origin: 50%;
-  background-color: red;
+  background-color: #FFFFFF;
   transition: transform 0.8s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   transform: scale3d(1, 1, 1);
@@ -258,4 +272,12 @@ a{
 
 .window__placeholder--loading{
   transform: scale3d(8, 8, 1);
+}
+
+.page-wrapper--hide{
+  display: none;
+}
+
+.page-dummy--show{
+  opacity: 1;
 }

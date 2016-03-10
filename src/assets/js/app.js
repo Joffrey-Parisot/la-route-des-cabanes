@@ -17,7 +17,9 @@ var support = { transitions: Modernizr.csstransitions },
         else {
             onEndCallbackFn();
         }
-    };
+    },
+    pageLanding = $('.landing'),
+    pageDummy = $('.page-dummy');
 
 $('.window').click(function(e){
 
@@ -43,24 +45,40 @@ $('.window').click(function(e){
     onEndTransition(placeholder[0], function() {
         console.log('stop transition');
 
+        pageDummy.addClass('page-dummy--show');
+
         $.ajax({
             url: page,
             method: 'GET',
-            dataType: 'html'
-        })
-        .success(function(data){
-            //console.log(data);
-            var pageWrapper = $(data).find('.page-wrapper');
-            console.log(pageWrapper);
-            $('.landing').after(pageWrapper);
+            dataType: 'html',
+            success: pageLoaded
         });
-
-        /*var loader = $('<div class="loader"></div>');
-
-        loader.load(page + " .page-wrapper");
-
-        console.log(loader);*/
 
     });
 
 });
+
+
+function pageLoaded(data){
+
+    // Get the new Page Wrapper from Ajax
+    var pageWrapper = $(data).find('.page-wrapper');
+
+    // Hide the Landing block
+    pageLanding.addClass('page-wrapper--hide');
+
+    // Add the new Page Wrapper after the Landing block
+    pageLanding.after(pageWrapper);
+
+    // TODO
+    // ajouter une window qui fait l'effet inverse de celle qui s'agrandit
+    // Cette window sera la placeholder de la vraie
+    // La vraie est celle en taille normal de la page qui vient de l'ajax
+    // On cache le dummy et on rétrécit la nouvelle window placeholder pour enfin voir la nouvelle page
+
+
+    // Hide the Dummy
+    //pageDummy.removeClass('page-dummy--show');
+
+
+}
