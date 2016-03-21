@@ -31,19 +31,13 @@ a{
   background-color: map-get($colors, light-grey);
 }
 
-.page-wrapper{
-  background-image: url('../img/domaine-de-syam/1.jpg');
-  background-size: cover;
-  overflow: hidden;
-}
-
 .page-dummy{
   position: absolute;
   top: 0;
   left: 0;
   z-index: 5;
   height: 100%;
-  background-color: rgba(118, 255, 86, 0.4);
+  background-color: #FFFFFF;
   border: 15px solid #FFFFFF;
   opacity: 0;
   pointer-events: none;
@@ -51,8 +45,26 @@ a{
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
 
+.page-wrapper{
+
+  background-size: cover;
+  overflow: hidden;
+}
+
+.landing{
+  background-image: url('../img/domaine-de-syam/1.jpg');
+}
+
+.belvedere{
+  background-image: url('../img/cabanes-et-lodges-du-belvédère/7.jpg');
+}
+
 .page{
   overflow: hidden;
+  position: relative;
+}
+
+.page-inner{
   position: relative;
 }
 
@@ -73,11 +85,6 @@ a{
   transform: translate3d(-50%,-50%,0);
 }
 
-.tree-house{
-  position: relative;
-  height: 100%;
-}
-
 .windows{
   position: absolute;
   top: 50%;
@@ -93,29 +100,55 @@ a{
   line-height: 300px;
   text-align: center;
   color: #FFFFFF;
-  margin-bottom: 25px;
   transition: all 0.5s;
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 
-  &:hover{
-    color: map-get($colors, dark-grey);
+  .window__border{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    border: 2px solid #FFFFFF;
+    transform-origin: 50%;
+    transform: translate3d(-50%,-50%,0);
+  }
+
+  .window__border--offset{
+    top: 52%;
+    left: 52%;
   }
 }
 
-.window__border{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300px;
-  height: 300px;
-  border: 2px solid #FFFFFF;
-  transform-origin: 50%;
-  transform: translate3d(-50%,-50%,0);
+.window.btn:hover{
+  color: map-get($colors, dark-grey);
 }
 
-.window__border--offset{
-  top: 52%;
-  left: 52%;
+.window--top{
+  margin-bottom: 25px;
+}
+
+.window--middle{
+  clear: both;
+  margin-right: 25px;
+}
+
+.window--big{
+  width: 600px;
+  height: 600px;
+  line-height: 600px;
+
+  .window__border{
+    width: 600px;
+    height: 600px;
+  }
+
+  .window__border--offset{
+    width: 580px;
+    height: 580px;
+    top: 50%;
+    left: 50%;
+  }
 }
 
 .window--little{
@@ -134,11 +167,6 @@ a{
   }
 }
 
-.window--middle{
-  clear: both;
-  margin-right: 25px;
-}
-
 .window__content{
   line-height: normal;
   display: inline-block;
@@ -147,7 +175,19 @@ a{
   max-width: 100%;
   position: relative;
   z-index: 2;
-  transform: rotate3d(0,0,1,-45deg);
+  transform: rotate3d(0, 0, 1, -45deg);
+}
+
+.window__suptitle,
+.window__title,
+.window__subtitle{
+  transition: transform 0.5s, opacity 0.5s;
+  transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.window__suptitle{
+  display: block;
+  transition-delay: 0.15s;
 }
 
 .window__title{
@@ -158,6 +198,12 @@ a{
   margin-top: 0.5rem;
   word-wrap: break-word;
   hyphens: auto;
+  transition-delay: 0.1s;
+}
+
+.window__subtitle{
+  display: block;
+  transition-delay: 0s;
 }
 
 .window--little .window__title{
@@ -176,7 +222,7 @@ a{
     border-style: solid;
     border-width: 0 0 0 0;
     position: absolute;
-    transition: 0.5s;
+    transition: 0.3s;
   }
 
   &:before{
@@ -200,7 +246,7 @@ a{
       border-style: solid;
       border-width: 0 0 0 0;
       position: absolute;
-      transition: 0.5s;
+      transition: 0.3s;
     }
 
     &:before{
@@ -208,7 +254,6 @@ a{
       right: 0;
       bottom: 0;
     }
-
 
     &:after {
       border-color: #FFFFFF transparent transparent transparent;
@@ -258,20 +303,48 @@ a{
 /*
  * Window click
  */
+.window__suptitle--loading{
+  transition-delay: 0s;
+  opacity: 0;
+  transform: translate3d(0, -80px, 0);
+}
+
+.window__title--loading{
+  transition-delay: 0.1s;
+  opacity: 0;
+  transform: translate3d(0, -90px, 0);
+}
+
+.window__subtitle--loading{
+  transition-delay: 0.15s;
+  opacity: 0;
+  transform: translate3d(0, -100px, 0);
+}
+
 .window__placeholder{
   position: absolute;
   z-index: 10;
   top: 0;
   left: 0;
+  opacity: 1;
   transform-origin: 50%;
   background-color: #FFFFFF;
-  transition: transform 0.8s;
+  transition: transform 0.5s;
   transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
   transform: scale3d(1, 1, 1);
 }
 
 .window__placeholder--loading{
   transform: scale3d(8, 8, 1);
+}
+
+.window__placeholder--shrink{
+  transition: opacity 0.55s;
+  opacity: 0;
+}
+
+.window__placeholder--hide{
+  display: none;
 }
 
 .page-wrapper--hide{
