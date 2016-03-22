@@ -1,3 +1,5 @@
+@import 'components/cssgram';
+
 $colors: (
   green: #95c11F,
   dark-grey: #3C3C3B,
@@ -52,11 +54,13 @@ a{
 }
 
 .landing{
-  background-image: url('../img/domaine-de-syam/1.jpg');
+  background-image: url('../img/domaine-de-syam/7.jpg');
+  @include nashville();
 }
 
 .belvedere{
   background-image: url('../img/cabanes-et-lodges-du-belvédère/7.jpg');
+  @include nashville();
 }
 
 .page{
@@ -66,10 +70,6 @@ a{
 
 .page-inner{
   position: relative;
-}
-
-.landing .page{
-  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .title{

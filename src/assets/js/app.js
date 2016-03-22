@@ -89,7 +89,7 @@ function pageLoaded(data){
     console.log('page loaded');
 
     // Change the browser history
-    var stateObj = { page: urlToLoad };
+    var stateObj = { page: 1 };
     history.pushState(stateObj, document.title, urlToLoad);
 
     // Get the new page wrapper from Ajax
@@ -147,3 +147,8 @@ function pageLoaded(data){
     });
 
 }
+
+window.onpopstate = function(event) {
+    console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+
+};
