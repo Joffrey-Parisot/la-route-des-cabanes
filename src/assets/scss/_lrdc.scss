@@ -48,24 +48,24 @@ a{
 }
 
 .page-wrapper{
-
   background-size: cover;
   overflow: hidden;
 }
 
 .landing{
   background-image: url('../img/domaine-de-syam/7.jpg');
-  @include nashville();
+  @include mayfair();
 }
 
 .belvedere{
   background-image: url('../img/cabanes-et-lodges-du-belvédère/7.jpg');
-  @include nashville();
+  @include mayfair();
 }
 
 .page{
   overflow: hidden;
   position: relative;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 .page-inner{
@@ -100,6 +100,7 @@ a{
   line-height: 300px;
   text-align: center;
   color: #FFFFFF;
+  text-shadow: 1px 1px 2px rgba(60, 60, 59, 0.5);
   transition: all 0.5s;
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 
@@ -122,6 +123,10 @@ a{
 
 .window.btn:hover{
   color: map-get($colors, dark-grey);
+}
+
+.window.btn:active{
+  color: #FFFFFF;
 }
 
 .window--top{
