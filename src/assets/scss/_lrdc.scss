@@ -1,4 +1,4 @@
-@import 'components/cssgram';
+@import 'components/mayfair';
 
 $colors: (
   green: #95c11F,
@@ -142,6 +142,8 @@ a{
   width: 600px;
   height: 600px;
   line-height: 600px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: map-get($colors, dark-grey);
 
   .window__border{
     width: 600px;
@@ -183,9 +185,15 @@ a{
   transform: rotate3d(0, 0, 1, -45deg);
 }
 
+.window__content--big{
+  padding: 30px 50px;
+  transform: rotate3d(0, 0, 1, -45deg);
+}
+
 .window__suptitle,
 .window__title,
-.window__subtitle{
+.window__subtitle,
+.window__text{
   transition: transform 0.5s, opacity 0.5s;
   transition-timing-function: cubic-bezier(0.7, 0, 0.3, 1);
 }
@@ -193,10 +201,15 @@ a{
 .window__suptitle{
   display: block;
   transition-delay: 0.15s;
+  opacity: 1;
+}
+
+.window__suptitle--big{
+  font-size: 1.5rem;
 }
 
 .window__title{
-  line-height: 1;
+  line-height: 1.2;
   font-size: 1.8rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -204,15 +217,42 @@ a{
   word-wrap: break-word;
   hyphens: auto;
   transition-delay: 0.1s;
+  opacity: 1;
+}
+
+.window__title--big{
+  font-size: 3rem;
+}
+
+.window__title--little{
+  font-size: 1.2rem;
 }
 
 .window__subtitle{
   display: block;
   transition-delay: 0s;
+  opacity: 1;
 }
 
-.window--little .window__title{
-  font-size: 1.2rem;
+.window__subtitle--big{
+  font-size: 1.5rem;
+}
+
+.window__text{
+  margin-top: 1rem;
+  margin-bottom: 0;
+  transition-delay: 0.2s;
+  opacity: 1;
+
+  &:before{
+    content: '';
+    display: block;
+    margin: 0 auto 1rem;
+    width: 25%;
+    height: 1px;
+    background-color: map-get($colors, dark-grey);
+    opacity: 0.5;
+  }
 }
 
 /*
@@ -324,6 +364,12 @@ a{
   transition-delay: 0.15s;
   opacity: 0;
   transform: translate3d(0, -100px, 0);
+}
+
+.window__text--loading{
+  transition-delay: 0.20s;
+  opacity: 0;
+  transform: translate3d(0, -150px, 0);
 }
 
 .window__placeholder{
