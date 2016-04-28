@@ -19,12 +19,16 @@ var support = { transitions: Modernizr.csstransitions },
         }
     },
     urlToLoad,
-    pageLanding = $('.landing'),
+    pageInfo = {
+        title: document.title,
+        url: location.href,
+        id: $('.page-wrapper').attr('id')
+    },
+    pageLanding = $('#landing'),
     pageDummy = $('#page-dummy');
 
 
 $('a.window').click(function(e){
-
     e.preventDefault();
 
     // Get the clicked window
@@ -35,7 +39,16 @@ $('a.window').click(function(e){
     urlToLoad = window.attr('href');
     console.log(urlToLoad);
 
-    // Create the window placeholder
+    // Load the page
+    loadPage(urlToLoad, window);
+
+});
+
+
+function loadPage(urlToLoad, window) {
+
+    // Create the window placeholder if it is not already here
+    //if($('.window__placeholder').length)
     var placeholder = $('<div class="window__placeholder"></div>');
 
     placeholder.css({
@@ -81,16 +94,12 @@ $('a.window').click(function(e){
         });
     });
 
-});
+}
 
 
 function pageLoaded(data){
 
     console.log('page loaded');
-
-    // Change the browser history
-    var stateObj = { page: 1 };
-    history.pushState(stateObj, document.title, urlToLoad);
 
     // Get the new page wrapper from Ajax
     var pageWrapper = $(data).find('.page-wrapper');
@@ -107,6 +116,16 @@ function pageLoaded(data){
     var bigTitle = bigWindow.find('.window__title');
     var bigSubTitle = bigWindow.find('.window__subtitle');
     var bigText = bigWindow.find('.window__text');
+
+    // Change the browser history
+    pageInfo.title = bigTitle.text();
+    pageInfo.url = urlToLoad;
+    pageInfo.id = pageWrapper.attr('id');
+    history.pushState(pageInfo, pageInfo.title, pageInfo.url);
+    console.log(history);
+
+    // Change the title
+    document.title = pageInfo.title;
 
     // Hide children
     bigSupTitle.addClass('window__suptitle--loading');
@@ -165,6 +184,25 @@ function pageLoaded(data){
 }
 
 window.onpopstate = function(event) {
+    event.preventDefault();
+
+    console.log(event);
+    console.log(event.state);
+
     console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
 
+    console.log(history);
+    console.log(history.state);
+
+    urlToLoad = document.location;
+    var window = $('#big-window');
+
+
+
+    // Load the page
+    //loadPage(urlToLoad, window);
+
 };
+
+
+// TODO : changer le title au chargement de la page également ++ faire un pushstate au load de la page également pour corriger le event.state null
