@@ -45,7 +45,9 @@ $('a.window').click(function(e){
 });
 
 
-function loadPage(urlToLoad, window) {
+function loadPage(urlToLoad, window, fromBigWindow = false) {
+
+    var windowText, windowElementForEndTransition;
 
     // Create the window placeholder if it is not already here
     //if($('.window__placeholder').length)
@@ -60,17 +62,33 @@ function loadPage(urlToLoad, window) {
     var windowSuptitle = window.find('.window__suptitle');
     var windowTitle = window.find('.window__title');
     var windowSubtitle = window.find('.window__subtitle');
+    if(fromBigWindow){
+        windowText = window.find('.window__text');
+    }
 
     windowSuptitle.addClass('window__suptitle--loading');
     windowTitle.addClass('window__title--loading');
     windowSubtitle.addClass('window__subtitle--loading');
+    if(fromBigWindow && windowText.length > 0){
+        windowText.addClass('window__text--loading');
+    }
 
+    // If we are coming from a Big Window, the windowText transition is > than the windowSuptitle transition
+    if(fromBigWindow && windowText.length > 0){
+        windowElementForEndTransition = windowText;
+    }
+    else{
+        windowElementForEndTransition = windowSuptitle;
+    }
+    
     // At the end of texts animations
-    onEndTransition(windowSuptitle[0], function() {
-        console.log('stop windowSuptitle transition');
+    onEndTransition(windowElementForEndTransition[0], function() {
+        console.log('stop windowElementForEndTransition transition');
 
         // Add the window placeholder
         placeholder.appendTo(window);
+
+        alert('bite');
 
         // And animate it
         setTimeout(function() {
@@ -200,7 +218,7 @@ window.onpopstate = function(event) {
 
 
     // Load the page
-    //loadPage(urlToLoad, window);
+    loadPage(urlToLoad, window, true);
 
 };
 
