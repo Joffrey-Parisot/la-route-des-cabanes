@@ -2,9 +2,11 @@
 
 $colors: (
   green: #95c11F,
+  dark-green: #008E27,
   dark-grey: #3C3C3B,
   grey: #6c6D70,
-  light-grey: #F8F8F8
+  light-grey: #F8F8F8,
+  yellow: #FFD600
 );
 
 html, body{
@@ -53,7 +55,7 @@ a{
 }
 
 .landing{
-  background-image: url('../img/domaine-de-syam/7.jpg');
+  background-image: url('../img/domaine-de-syam/6.jpg');
   @include mayfair();
 }
 
@@ -65,6 +67,7 @@ a{
 .page{
   overflow: hidden;
   position: relative;
+  background-color: rgba(map-get($colors, dark-green), 0.2);
 }
 
 .page-inner{
